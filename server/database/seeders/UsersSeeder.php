@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UsersSeeder extends Seeder
 {
@@ -15,15 +15,13 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 20; $i++) {
-            $array[] = [
-                'name' => 'admin' . $i,
-                'email' => 'admin' . $i . '@example.com',
-                'password' =>  Hash::make('admin' . $i),
-                'created_at' => now()->addMinutes($i),
-            ];
-        }
+        $user = [
+            'name' => 'root',
+            'email' => 'root@example.com',
+            'password' =>  Hash::make('root'),
+            'created_at' => now(),
+        ];
 
-        DB::table('users')->insert($array);
+        DB::table('users')->insert($user);
     }
 }
