@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoryPost;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,12 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            AdminsSeeder::class,
             UsersSeeder::class,
-            UserContributionsSeeder::class,
-            UserInfosSeeder::class,
-            ContributionCategoriesSeeder::class,
-            ContributionCategoryUserContributionSeeder::class,
+            PostsSeeder::class,
+            CategoriesSeeder::class,
+            CategoryPostSeeder::class,
         ]);
     }
 }
