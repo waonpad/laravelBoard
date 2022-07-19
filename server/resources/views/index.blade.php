@@ -19,9 +19,11 @@
                                 <span>{{ $category->category }}</span>
                             @endforeach
                         </td>
-                        <td style="min-width: 160px">
-                            <a href="" class="btn btn-primary">編集</a>
-                            <a href="" class="btn btn-danger">削除</a>
+                        <td>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary mb-1">編集</a>
+                            {{ Form::open(['route' => ['post.destroy', $post->id], 'method' => 'DELETE']) }}
+                            {{ Form::submit('削除', ['class' => 'btn btn-danger']) }}
+                            {{ Form::close() }}
                         </td>
                     </tr>
                 @endforeach
