@@ -1,0 +1,22 @@
+# docker
+.env
+
+# netbeans
+/nbproject
+
+# PHPStorm
+.idea
+
+# VSCODE
+.vscode/
+*.code-workspace
+**/css/style.css.map
+**/css/style.css
+**/css/reset.css
+
+# ide-helper
+_ide_helper_models.php
+server/public/css/app.css
+server/public/css/app.css
+server/public/css/app.css
+server/public/css/app.css
