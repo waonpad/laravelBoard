@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('post', PostController::class)->except('show');
+Route::get('/', [HomeController::class, 'index']);
+
+// ToDo: Postコントローラをルートに登録する

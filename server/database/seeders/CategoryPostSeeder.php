@@ -14,14 +14,6 @@ class CategoryPostSeeder extends Seeder
      */
     public function run()
     {
-        $array = [];
-        for ($i = 1; $i < 20; $i++) {
-            $array[] = [
-                'post_id' => $i,
-                'category_id' => random_int(1, 4)
-            ];
-        }
-
-        DB::table('category_post')->insert($array);
+        // ToDo: category_postテーブルに入れるテストデータを作成
     }
 }

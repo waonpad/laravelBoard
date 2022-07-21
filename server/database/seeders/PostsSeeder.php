@@ -28,13 +28,6 @@ class PostsSeeder extends Seeder
             'Fusce quis urna metus. Curabitur ornare, lacus a aliquam posuere, purus nulla hendrerit leo, sed tincidunt ex massa sed ex. Vivamus in purus gravida, porttitor dui vel, rhoncus felis. Sed rutrum neque vitae leo suscipit ullamcorper. Sed euismod sit amet nulla vitae rutrum. Ut euismod massa non eros feugiat pharetra. In purus felis, tristique ac odio eget, finibus dictum tellus. Phasellus ac porta erat, quis laoreet nulla.'
         ];
 
-        $array = [];
-        for ($i = 1; $i < 20; $i++) {
-            $array[] = [
-                'body' => $i . '_' . $sample_contribution[random_int(1, 10)],
-            ];
-        }
-
-        DB::table('posts')->insert($array);
+        // ToDo: postsテーブルに入れるテストデータを作成
     }
 }

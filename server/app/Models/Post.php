@@ -14,8 +14,5 @@ class Post extends Model
         'body'
     ];
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
+    // ToDo: Categoryとリレーションで繋げる
 }

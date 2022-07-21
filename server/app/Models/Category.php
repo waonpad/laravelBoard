@@ -13,8 +13,5 @@ class Category extends Model
         'category'
     ];
 
-    public function posts()
-    {
-        return $this->belongsToMany(Post::class);
-    }
+    // ToDo: Postとリレーションで繋げる
 }

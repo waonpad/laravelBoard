@@ -15,9 +15,9 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->text('body')->nullable()->comment('投稿内容');
             $table->timestamps();
-            $table->softDeletes();
+
+            // ToDo: postsテーブルのベースを作成
         });
     }
 

@@ -21,14 +21,6 @@ class CategoriesSeeder extends Seeder
             'TypeScript'
         ];
 
-        $array = [];
-
-        foreach ($catgories as $category) {
-            $array[] = [
-                'category' => $category
-            ];
-        }
-
-        DB::table('categories')->insert($array);
+        // ToDo: categoriesテーブルに入れるテストデータを作成
     }
 }
