@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Post;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'description',
+        'age',
+        'gender'
     ];
 
     /**
@@ -29,4 +33,24 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // フォロワー→フォロー
+    public function followers() {
+        return $this->belongsToMany('App\Models\User', 'follows', 'followed_user_id', 'following_user_id');
+    }
+
+    // フォロー→フォロワー
+    public function follows() {
+        return $this->belongsToMany('App\Models\User', 'follows', 'following_user_id', 'followed_user_id');
+    }
+
+    // ユーザーのpost一覧
+    public function posts() {
+        return $this->hasMany(Post::class)->with(['categories', 'user', 'likeUsers']);
+    }
+
+    // ユーザーのlike一覧
+    public function likes() {
+        return $this->belongsToMany('App\Models\Post', 'likes', 'user_id', 'post_id')->with(['categories', 'user', 'likeUsers']);
+    }
 }

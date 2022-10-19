@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\CategoryPost;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpsertPostRequest;
 
 class PostController extends Controller
 {
@@ -15,7 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::get();
+
+        return view('home', compact('posts'));
     }
 
     /**
@@ -23,9 +29,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $categories = Category::get();
+
+        return view('post.create', compact('categories'));
     }
 
     /**
@@ -34,9 +42,31 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function upsert(UpsertPostRequest $request)
     {
-        //
+        $categories = $request->categories ? $request->categories : [];
+
+        if($request->filled('new_category')) {
+            if(!$id = Category::where('name', $request->new_category)->first()) {
+                $id = Category::create([
+                    'name' => $request->new_category
+                ])->id;
+            }
+            array_push($categories, $id);
+        }
+
+        $post = Post::updateOrCreate(
+            ['id'=>$request->id],
+            [
+                'title' => $request->title,
+                'comment' => $request->comment,
+                'user_id' => Auth::user()->id
+            ]
+        );
+
+        $post->categories()->sync($categories);
+
+        return redirect('home');
     }
 
     /**
@@ -47,7 +77,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        $categories = Category::get();
+        $belonged_categories = $post->categories()->get();
+
+        return view('post.edit', compact('post', 'categories', 'belonged_categories'));
     }
 
     /**
@@ -58,8 +93,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {  
     }
 
     /**
@@ -70,6 +104,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+
+        return view('home');
     }
 }
