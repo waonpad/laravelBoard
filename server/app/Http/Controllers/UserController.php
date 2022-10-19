@@ -16,16 +16,15 @@ class UserController extends Controller
     }
 
     public function show($id) {
-        $auth_user = Auth::user();
         $user = User::with(['posts', 'likes', 'follows', 'followers'])->find($id);
         $follow_controller = app()->make('App\Http\Controllers\FollowController');
         $ffcheck = $follow_controller->ffcheck(intval($id));
 
-        return view('user.profile', compact('auth_user', 'user', 'ffcheck'));
+        return view('user.profile', compact('user', 'ffcheck'));
     }
 
-    public function edit(Request $_request, $id) {
-        $user = User::find($id);
+    public function edit(Request $_request) {
+        $user = Auth::user();
 
         return view('user.edit', compact('user'));
     }

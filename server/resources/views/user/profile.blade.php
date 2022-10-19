@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="container">
-    <div class="w-75 mx-auto">
+    <div class="mx-auto">
         <div class="container d-flex mt-2 mb-2 align-items-center">
             <p class="h3 mb-0">{{ $user['name'] }}</p>
             <div class="me-auto">
@@ -10,8 +10,9 @@
                     <a class="btn btn-sm btn-outline-secondary ms-3" role="button" href="/user/edit">Edit Profile</a>
                 @endif
                 @if(!$ffcheck['myself'])
-                    <form action="/user/follow/{{ $user['id'] }}" method="post">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-3" id="follow{{ $user['id'] }}">{{ $ffechk['follow'] ? 'unFollow' : 'Follow' }}</button>
+                    <form action="/user/{{ $ffcheck['follow'] ? 'unfollow' : 'follow' }}/{{ $user['id'] }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-3" id="follow{{ $user['id'] }}">{{ $ffcheck['follow'] ? 'unFollow' : 'Follow' }}</button>
                     </form>
                 @endif
             </div>

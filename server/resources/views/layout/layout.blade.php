@@ -28,6 +28,40 @@
 
 <body>
     <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f7f7f7 !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Board</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @auth
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="">Group List</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Group Create</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/user/{{ auth()->user()->id }}">MyPage</a></li>
+                    </ul>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"
+                        >
+                        Logout
+                        </button>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @endauth
+                    @guest
+                        <div class="ms-auto">
+                            <a class="btn btn-sm btn-outline-secondary me-3" role="button" href="/register">Register</a>
+                            <a class="btn btn-sm btn-outline-secondary" role="button" href="/login">Login</a>
+                        </div>
+                    @endguest
+                </div>
+            </div>
+        </nav>
         <main class="py-4">
             @yield('content')
         </main>
