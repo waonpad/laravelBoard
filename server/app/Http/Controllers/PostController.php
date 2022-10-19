@@ -85,15 +85,8 @@ class PostController extends Controller
         return view('post.edit', compact('post', 'categories', 'belonged_categories'));
     }
 
-    /**
-     * ToDo: 編集した投稿を登録する機能を実装
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {  
+    public function show($id) {
+
     }
 
     /**
@@ -107,5 +100,9 @@ class PostController extends Controller
         Post::find($id)->delete();
 
         return view('home');
+    }
+
+    public function follows() {
+        
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,11 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/', [HomeController::class, 'index']);
-
+// idは1文字以上の数字(RouteServiceProviderで定義)
 
 // 一覧画面
-Route::get('/home', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/home', [PostController::class, 'index'])->name('home');
 
 Route::prefix('post')->group(function (){
     // // 一覧画面
@@ -39,9 +38,13 @@ Route::prefix('post')->group(function (){
     // 作成
     Route::post('upsert', [PostController::class, 'upsert'])->middleware('auth');
     // 削除
-    Route::post('destroy', [PostController::class, 'destroy'])->middleware('auth');
+    Route::post('destroy/{id}', [PostController::class, 'destroy'])->middleware('auth');
+    // LikeToggle
+    Route::post('likeorunlike/{id}', [likeController::class, 'likeOrUnlike'])->middleware('auth');
     // 個別の投稿画面
     Route::get('{id}', [PostController::class, 'show'])->name('post.show');
+    // 個別の投稿画面
+    Route::get('follows', [PostController::class, 'follows'])->name('post.follows');
 });
 
 Route::prefix('user')->group(function (){
@@ -50,7 +53,7 @@ Route::prefix('user')->group(function (){
     // 作成画面
     // Route::get('create', [UserController::class, 'index']);
     // 編集画面
-    Route::get('edit/{id}', [UserController::class, 'edit'])->middleware('auth')->name('user.edit');
+    Route::get('edit', [UserController::class, 'edit'])->middleware('auth')->name('user.edit');
     // ユーザー画面
     Route::get('{id}', [UserController::class, 'show'])->name('user.show');
     Route::get('{id}/likes', [UserController::class, 'show'])->name('user.likes');
