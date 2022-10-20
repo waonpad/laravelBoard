@@ -11,42 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
-    public function follow($id) {
+    public function followToggle($id) {
         $user = Auth::user();
 
-        $followed_user = User::find($id);
-
-        $exist = Follow::where('following_user_id', $user->id)->where('followed_user_id', $followed_user->id)->first();
-
-        if($exist == null) {
-            $follow = Follow::create([
-                'following_user_id' => $user->id,
-                'followed_user_id' => $followed_user->id,
-            ]);
-
-            // $followed_user->notify(new CommonNotification($follow));
-            return back(); // 成功
+        $toggle_result = $user->follows()->toggle($id);
+        if(in_array($id, $toggle_result['attached'])) {
+            $follow_status = true;
         }
-        else {
-            return back(); //　失敗
+        else if(in_array($id, $toggle_result['detached'])) {
+            $follow_status = false;
         }
-    }
 
-    public function unfollow($id) {
-        $user = Auth::user();
-
-        $followed_user = User::find($id);
-        
-        $exist = Follow::where('following_user_id', $user->id)->where('followed_user_id', $followed_user->id)->first();
-
-        if($exist == null) {
-            return back(); // 失敗
-        }
-        else {
-            $follow = Follow::where('following_user_id', $user->id)->where('followed_user_id', $followed_user->id)->first();
-            $follow->delete();
-            return back(); // 成功
-        }
+        return back();
     }
 
     public function ffcheck($id) {

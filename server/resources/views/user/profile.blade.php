@@ -10,7 +10,7 @@
                     <a class="btn btn-sm btn-outline-secondary ms-3" role="button" href="/user/edit">Edit Profile</a>
                 @endif
                 @if(!$ffcheck['myself'])
-                    <form action="/user/{{ $ffcheck['follow'] ? 'unfollow' : 'follow' }}/{{ $user['id'] }}" method="post">
+                    <form action="/user/followtoggle/{{ $user['id'] }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-outline-secondary ms-3" id="follow{{ $user['id'] }}">{{ $ffcheck['follow'] ? 'unFollow' : 'Follow' }}</button>
                     </form>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th scope="row">Description</th>
-                <td>{{ $user['description'] }}</td>
+                <td>{!! nl2br(e($user['description'])) !!}</td>
             </tr>
         </table>
         <!-- ユーザーの投稿 / いいね一覧 -->
