@@ -20,7 +20,6 @@ class Post extends Model
 
     protected $table = 'posts';
 
-    // ToDo: Categoryとリレーションで繋げる
     public function categories() {
       return $this->belongsToMany(Category::class);
     }

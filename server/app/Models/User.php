@@ -46,11 +46,11 @@ class User extends Authenticatable
 
     // ユーザーのpost一覧
     public function posts() {
-        return $this->hasMany(Post::class)->with(['categories', 'user', 'likeUsers']);
+        return $this->hasMany(Post::class);
     }
 
     // ユーザーのlike一覧
     public function likes() {
-        return $this->belongsToMany('App\Models\Post', 'likes', 'user_id', 'post_id')->with(['categories', 'user', 'likeUsers']);
+        return $this->belongsToMany('App\Models\Post', 'likes', 'user_id', 'post_id');
     }
 }

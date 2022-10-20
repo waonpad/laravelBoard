@@ -37,6 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     @auth
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/post/create">Post Create</a></li>
                         <li class="nav-item"><a class="nav-link" href="">Group List</a></li>
                         <li class="nav-item"><a class="nav-link" href="">Group Create</a></li>
                         <li class="nav-item"><a class="nav-link" href="/user/{{ auth()->user()->id }}">MyPage</a></li>

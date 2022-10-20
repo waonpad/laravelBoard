@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Post;
 
 class Category extends Model
 {
@@ -16,8 +17,11 @@ class Category extends Model
     
     protected $table = 'categories';
 
-    // ToDo: Postとリレーションで繋げる
+    public function posts() {
+        return $this->belongsToMany(Post::class);
+    }
+
     public function users() {
-      return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class);
     }
 }

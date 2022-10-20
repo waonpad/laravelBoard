@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Like;
 use App\Models\CategoryPost;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class PostController extends Controller
     {
         $categories = Category::get();
 
-        return view('post.create', compact('categories'));
+        return view('post.manage', compact('categories'));
     }
 
     /**
@@ -78,11 +79,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-
         $categories = Category::get();
-        $belonged_categories = $post->categories()->get();
 
-        return view('post.edit', compact('post', 'categories', 'belonged_categories'));
+        return view('post.manage', compact('post', 'categories'));
     }
 
     public function show($id) {
@@ -99,10 +98,18 @@ class PostController extends Controller
     {
         Post::find($id)->delete();
 
-        return view('home');
+        return back();
     }
 
     public function follows() {
-        
+        $posts = Post::query()->whereIn('user_id', Auth::user()->follows()->pluck('followed_user_id'))->latest()->get();
+
+        return view('home', compact('posts'));
+    }
+
+    public function category($id) {
+        $posts = Category::find($id)->posts;
+
+        return view('home', compact('posts'));
     }
 }

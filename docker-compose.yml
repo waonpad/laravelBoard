@@ -9,6 +9,8 @@ services:
     volumes:
       - ./server:/var/www/html
       - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - vendor-store:/var/www/html/vendor
+      # - node_modules-store:/var/www/html/node_modules
 
   db:
     image: mysql:5.7.36
@@ -46,3 +48,7 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+
+volumes:
+  vendor-store:
+  # node_modules-store:

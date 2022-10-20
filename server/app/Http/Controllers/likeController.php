@@ -8,7 +8,7 @@ use App\Models\Post;
 
 class likeController extends Controller
 {
-    public function likeOrUnlike($id) {
+    public function likeToggle($id) {
         $user = Auth::user();
         $user->likes()->toggle($id);
 
